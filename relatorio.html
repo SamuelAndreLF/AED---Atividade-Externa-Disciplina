@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Relatório Técnico — AutiAssist</title>
+  <style>
+    @media print {
+      body { font-size: 11pt; }
+      .no-print { display: none; }
+      .page { box-shadow: none; margin: 0; }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Times New Roman', serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 60px 72px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    .capa {
+      text-align: center;
+      border: 2px solid #1a1a1a;
+      padding: 48px 32px;
+      margin-bottom: 60px;
+    }
+    .capa .instituicao { font-size: 13pt; font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
+    .capa .curso { font-size: 11pt; margin-bottom: 40px; }
+    .capa .titulo { font-size: 16pt; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
+    .capa .subtitulo { font-size: 12pt; margin-bottom: 48px; }
+    .capa .autor { font-size: 12pt; margin-bottom: 4px; }
+    .capa .data { font-size: 11pt; color: #444; margin-top: 40px; }
+
+    h1 { font-size: 14pt; text-transform: uppercase; text-align: center; margin-bottom: 24px; border-bottom: 2px solid #1a1a1a; padding-bottom: 8px; }
+    h2 { font-size: 12pt; font-weight: bold; margin-top: 28px; margin-bottom: 10px; }
+    h3 { font-size: 11pt; font-weight: bold; margin-top: 16px; margin-bottom: 6px; }
+
+    p { font-size: 11pt; line-height: 1.8; text-align: justify; margin-bottom: 12px; }
+
+    ul, ol { margin-left: 28px; margin-bottom: 12px; }
+    li { font-size: 11pt; line-height: 1.8; }
+
+    pre, code {
+      font-family: 'Courier New', monospace;
+      font-size: 9.5pt;
+    }
+    pre {
+      background: #f0f0f0;
+      border-left: 4px solid #333;
+      padding: 12px 16px;
+      margin: 14px 0;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .legenda {
+      text-align: center;
+      font-size: 9.5pt;
+      color: #555;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    th { background: #1a1a1a; color: #fff; padding: 8px 12px; text-align: left; }
+    td { padding: 7px 12px; border-bottom: 1px solid #ddd; }
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    .secao { margin-bottom: 32px; }
+
+    .destaque {
+      background: #f0f7ff;
+      border-left: 4px solid #1565c0;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 11pt;
+      line-height: 1.7;
+    }
+
+    .print-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1565c0;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: sans-serif;
+    }
+    .print-btn:hover { background: #0d47a1; }
+  </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Salvar como PDF</button>
+
+<div class="page">
+
+  <!-- CAPA -->
+  <div class="capa">
+    <div class="instituicao">Instituição de Ensino Superior</div>
+    <div class="curso">Curso de Tecnologia da Informação / Ciência da Computação</div>
+
+    <div class="titulo">AutiAssist</div>
+    <div class="subtitulo">Inovação Disruptiva: Comunicação Aumentativa para Pessoas com Autismo Utilizando Inteligência Artificial</div>
+
+    <div class="autor"><strong>Aluno:</strong> Samuel André Lopes Furtado</div>
+    <div class="autor"><strong>Disciplina:</strong> Atividade Externa de Disciplina (AED)</div>
+    <div class="autor"><strong>Entrega:</strong> 09 de junho de 2026</div>
+    <div class="data">Junho de 2026</div>
+  </div>
+
+  <!-- SUMÁRIO -->
+  <div class="secao">
+    <h1>Sumário</h1>
+    <ol>
+      <li>Introdução</li>
+      <li>Identificação do Problema</li>
+      <li>Solução Proposta — AutiAssist</li>
+      <li>Ferramentas de IA Utilizadas</li>
+      <li>Desenvolvimento do Protótipo (MVP)</li>
+      <li>Análise de Viabilidade</li>
+      <li>Análise Ética</li>
+      <li>Conclusão</li>
+      <li>Referências</li>
+    </ol>
+  </div>
+
+  <!-- 1. INTRODUÇÃO -->
+  <div class="secao">
+    <h1>1. Introdução</h1>
+    <p>
+      O autismo — Transtorno do Espectro Autista (TEA) — afeta aproximadamente 2% da população
+      mundial, sendo que uma parcela significativa dessas pessoas apresenta dificuldades
+      severas ou ausência total de comunicação verbal. No Brasil, estima-se que mais de
+      2 milhões de pessoas sejam diagnosticadas com TEA, muitas delas sem acesso a ferramentas
+      adequadas de comunicação alternativa.
+    </p>
+    <p>
+      A Comunicação Aumentativa e Alternativa (CAA) é um conjunto de estratégias e
+      ferramentas que visa complementar ou substituir a fala para pessoas com dificuldades
+      de comunicação. Historicamente, essas ferramentas eram caras, de difícil acesso e
+      pouco adaptáveis à realidade de famílias de baixa renda.
+    </p>
+    <p>
+      Este trabalho apresenta o <strong>AutiAssist</strong>, um protótipo de aplicativo web
+      de comunicação aumentativa desenvolvido com auxílio de Inteligência Artificial Generativa,
+      que oferece uma solução acessível, gratuita e funcional para esse público.
+    </p>
+  </div>
+
+  <!-- 2. PROBLEMA -->
+  <div class="secao">
+    <h1>2. Identificação do Problema</h1>
+
+    <h2>2.1 Contexto</h2>
+    <p>
+      Pessoas com TEA que apresentam comunicação verbal limitada dependem de cuidadores,
+      profissionais de saúde e educadores para expressar necessidades básicas como fome,
+      dor, cansaço ou desconforto. A ausência de ferramentas de comunicação adequadas
+      pode gerar frustração, comportamentos desafiadores e isolamento social.
+    </p>
+
+    <h2>2.2 Dor Identificada</h2>
+    <div class="destaque">
+      Ferramentas de CAA existentes (como o Tobii Dynavox e o Proloquo2Go) custam entre
+      R$ 1.500 e R$ 15.000, tornando-as inacessíveis para a maior parte das famílias
+      brasileiras. Aplicativos gratuitos existentes carecem de usabilidade adequada,
+      personalização e suporte ao português brasileiro.
+    </div>
+
+    <h2>2.3 Público-Alvo</h2>
+    <ul>
+      <li>Crianças e adultos com TEA com comunicação verbal limitada ou ausente;</li>
+      <li>Familiares e cuidadores que precisam de ferramentas acessíveis;</li>
+      <li>Professores e terapeutas ocupacionais em atendimento educacional especializado.</li>
+    </ul>
+  </div>
+
+  <!-- 3. SOLUÇÃO -->
+  <div class="secao">
+    <h1>3. Solução Proposta — AutiAssist</h1>
+
+    <h2>3.1 Descrição</h2>
+    <p>
+      O AutiAssist é um aplicativo web de comunicação por pictogramas que permite ao
+      usuário montar frases clicando em imagens representativas (emojis + texto) organizadas
+      por categorias temáticas. A frase montada pode ser lida em voz alta pelo dispositivo
+      utilizando síntese de voz em português brasileiro.
+    </p>
+
+    <h2>3.2 Funcionalidades do Protótipo</h2>
+    <table>
+      <tr><th>Funcionalidade</th><th>Descrição</th></tr>
+      <tr><td>Pictogramas por categoria</td><td>72 pictogramas organizados em 6 categorias: Necessidades, Sentimentos, Ações, Comida, Pessoas e Lugares</td></tr>
+      <tr><td>Construção de frases</td><td>Seleção sequencial de pictogramas formando uma frase visual na barra superior</td></tr>
+      <tr><td>Síntese de voz</td><td>Leitura em voz alta da frase via Web Speech API (pt-BR)</td></tr>
+      <tr><td>Interface responsiva</td><td>Funciona em celulares, tablets e computadores sem instalação</td></tr>
+      <tr><td>Acesso offline</td><td>Arquivo único HTML, funciona sem internet após o primeiro acesso</td></tr>
+    </table>
+
+    <h2>3.3 Diferenciais</h2>
+    <ul>
+      <li><strong>Gratuito e open-source</strong> — sem custo para famílias ou instituições;</li>
+      <li><strong>Sem instalação</strong> — funciona diretamente no navegador do celular;</li>
+      <li><strong>Português brasileiro</strong> — desenvolvido com vocabulário e contexto nacional;</li>
+      <li><strong>Interface simples</strong> — botões grandes, cores contrastantes, feedback visual e sonoro.</li>
+    </ul>
+  </div>
+
+  <!-- 4. FERRAMENTAS DE IA -->
+  <div class="secao">
+    <h1>4. Ferramentas de IA Utilizadas</h1>
+
+    <h2>4.1 Ideação e Pesquisa</h2>
+    <p>
+      A fase de ideação utilizou IA Generativa (Claude, da Anthropic) para:
+    </p>
+    <ul>
+      <li>Pesquisa de mercado sobre soluções existentes de CAA e seus custos;</li>
+      <li>Criação de personas representativas do público-alvo;</li>
+      <li>Definição das categorias de pictogramas mais relevantes para o público com TEA;</li>
+      <li>Análise de requisitos de usabilidade para pessoas neurodivergentes.</li>
+    </ul>
+
+    <h2>4.2 Desenvolvimento do Protótipo</h2>
+    <p>
+      O código do protótipo foi integralmente gerado por IA Generativa a partir de um
+      prompt técnico detalhado, produzindo em minutos um MVP funcional que normalmente
+      demandaria dias de desenvolvimento. A IA foi utilizada para:
+    </p>
+    <ul>
+      <li>Geração do código HTML, CSS e JavaScript do aplicativo;</li>
+      <li>Implementação da integração com a Web Speech API;</li>
+      <li>Design da interface adaptado para usuários com necessidades especiais;</li>
+      <li>Seleção e curadoria dos pictogramas (emojis) por categoria.</li>
+    </ul>
+
+    <table>
+      <tr><th>Ferramenta de IA</th><th>Finalidade</th></tr>
+      <tr><td>Claude (Anthropic)</td><td>Geração do código do protótipo, pesquisa, ideação e análise ética</td></tr>
+      <tr><td>Web Speech API (nativa)</td><td>Síntese de voz em português brasileiro integrada ao navegador</td></tr>
+    </table>
+
+    <h2>4.3 Prompt Utilizado</h2>
+    <p>
+      O protótipo foi gerado a partir de um prompt estruturado detalhando todas as
+      funcionalidades, categorias de pictogramas, paleta de cores e requisitos de
+      acessibilidade. O uso de prompt engineering permitiu obter um código funcional
+      e adequado ao público-alvo sem necessidade de iterações extensas.
+    </p>
+  </div>
+
+  <!-- 5. DESENVOLVIMENTO -->
+  <div class="secao">
+    <h1>5. Desenvolvimento do Protótipo (MVP)</h1>
+
+    <h2>5.1 Tecnologias</h2>
+    <table>
+      <tr><th>Tecnologia</th><th>Justificativa</th></tr>
+      <tr><td>HTML5</td><td>Estrutura da interface, sem dependências externas</td></tr>
+      <tr><td>CSS3</td><td>Design responsivo e acessível, com animações suaves</td></tr>
+      <tr><td>JavaScript (ES6)</td><td>Lógica de interação e construção dinâmica da interface</td></tr>
+      <tr><td>Web Speech API</td><td>Síntese de voz nativa do navegador, sem custo adicional</td></tr>
+    </table>
+
+    <h2>5.2 Arquitetura</h2>
+    <p>
+      O protótipo foi desenvolvido como um único arquivo <code>index.html</code> autocontido,
+      sem dependências de bibliotecas externas ou conexão com servidores. Essa decisão
+      arquitetural garante:
+    </p>
+    <ul>
+      <li>Funcionamento offline após o primeiro carregamento;</li>
+      <li>Facilidade de distribuição (basta compartilhar o arquivo);</li>
+      <li>Zero custo de infraestrutura para hospedagem;</li>
+      <li>Compatibilidade com todos os navegadores modernos.</li>
+    </ul>
+
+    <h2>5.3 Acesso ao Protótipo</h2>
+    <div class="destaque">
+      O protótipo está disponível online em:<br/>
+      <strong>https://samuelandrelf.github.io/AED---Atividade-Externa-Disciplina/</strong>
+    </div>
+  </div>
+
+  <!-- 6. VIABILIDADE -->
+  <div class="secao">
+    <h1>6. Análise de Viabilidade</h1>
+
+    <h2>6.1 Viabilidade Técnica</h2>
+    <p>
+      O protótipo já é funcional e utilizável em sua forma atual. A Web Speech API possui
+      suporte em todos os navegadores modernos (Chrome, Safari, Firefox, Edge), garantindo
+      ampla cobertura de dispositivos. A interface responsiva permite uso em celulares
+      Android e iOS sem instalação de aplicativo.
+    </p>
+
+    <h2>6.2 Viabilidade Econômica</h2>
+    <p>
+      O custo de desenvolvimento do MVP foi próximo de zero, utilizando ferramentas de IA
+      gratuitas e tecnologias web nativas. A hospedagem via GitHub Pages é gratuita.
+      Em uma eventual evolução para aplicativo móvel nativo, o custo estimado de
+      publicação nas lojas (Google Play e App Store) é de aproximadamente R$ 150/ano.
+    </p>
+
+    <h2>6.3 Escalabilidade</h2>
+    <p>
+      O projeto pode evoluir para incluir:
+    </p>
+    <ul>
+      <li>Pictogramas personalizáveis por família/terapeuta;</li>
+      <li>Banco de pictogramas ampliado com imagens reais (ARASAAC, Mulberry);</li>
+      <li>Integração com IA para sugestão preditiva de pictogramas;</li>
+      <li>Versão de aplicativo móvel nativo (React Native ou Flutter);</li>
+      <li>Modo offline completo via Progressive Web App (PWA).</li>
+    </ul>
+  </div>
+
+  <!-- 7. ÉTICA -->
+  <div class="secao">
+    <h1>7. Análise Ética</h1>
+
+    <h2>7.1 Benefícios Sociais</h2>
+    <p>
+      O AutiAssist promove a inclusão social de pessoas com TEA ao democratizar o acesso
+      a ferramentas de comunicação aumentativa. A solução respeita a autonomia do usuário,
+      permitindo que ele expresse suas necessidades e sentimentos de forma independente,
+      reduzindo a dependência de terceiros.
+    </p>
+
+    <h2>7.2 Privacidade e Dados</h2>
+    <p>
+      O protótipo não coleta, armazena ou transmite nenhum dado do usuário. Todo o
+      processamento ocorre localmente no dispositivo do usuário, sem envio de informações
+      para servidores externos. Isso é especialmente relevante dado o público vulnerável
+      (crianças com necessidades especiais).
+    </p>
+
+    <h2>7.3 Uso Responsável da IA</h2>
+    <p>
+      A IA Generativa foi utilizada como ferramenta de apoio ao desenvolvimento, com
+      supervisão humana em todas as etapas. O conteúdo dos pictogramas foi revisado
+      manualmente para garantir adequação cultural e linguística ao contexto brasileiro
+      e ao público com TEA.
+    </p>
+
+    <h2>7.4 Acessibilidade e Inclusão</h2>
+    <p>
+      O design foi orientado pelos princípios do Design Universal, com botões de tamanho
+      adequado para uso por pessoas com dificuldades motoras, cores contrastantes para
+      usuários com sensibilidade visual e feedback sonoro para reforço da comunicação.
+    </p>
+
+    <h2>7.5 Limitações Éticas</h2>
+    <p>
+      É importante ressaltar que o AutiAssist é uma ferramenta de apoio e não substitui
+      o acompanhamento profissional de fonoaudiólogos, psicólogos e terapeutas
+      ocupacionais. O uso da ferramenta deve ser complementar ao tratamento especializado.
+    </p>
+  </div>
+
+  <!-- 8. CONCLUSÃO -->
+  <div class="secao">
+    <h1>8. Conclusão</h1>
+    <p>
+      O AutiAssist demonstra como a Inteligência Artificial Generativa pode ser utilizada
+      para desenvolver soluções inovadoras que endereçam problemas reais e urgentes da
+      sociedade, com custo mínimo e alto impacto social.
+    </p>
+    <p>
+      Em poucas horas, utilizando ferramentas de IA como suporte, foi possível criar um
+      MVP funcional de uma solução de comunicação aumentativa que beneficia um público
+      que historicamente não tem acesso a tecnologias assistivas por questões econômicas.
+    </p>
+    <p>
+      O projeto evidencia o potencial transformador da IA quando aplicada com propósito
+      social claro, responsabilidade ética e foco nas necessidades reais de comunidades
+      vulneráveis. A tecnologia, neste caso, não é o fim, mas o meio para promover
+      inclusão, autonomia e dignidade.
+    </p>
+  </div>
+
+  <!-- 9. REFERÊNCIAS -->
+  <div class="secao">
+    <h1>9. Referências</h1>
+    <ul>
+      <li>AMERICAN PSYCHIATRIC ASSOCIATION. <strong>DSM-5: Manual Diagnóstico e Estatístico de Transtornos Mentais</strong>. 5. ed. Porto Alegre: Artmed, 2014.</li>
+      <li>BEUKELMAN, D. R.; MIRENDA, P. <strong>Augmentative and Alternative Communication</strong>. 4. ed. Baltimore: Paul H. Brookes, 2013.</li>
+      <li>BRASIL. <strong>Lei nº 12.764/2012</strong> — Institui a Política Nacional de Proteção dos Direitos da Pessoa com Transtorno do Espectro Autista. Brasília, 2012.</li>
+      <li>W3C. <strong>Web Speech API Specification</strong>. Disponível em: https://wicg.github.io/speech-api/</li>
+      <li>ARAÚJO, L. et al. <strong>Tecnologia Assistiva e Autismo no Brasil</strong>. Revista Brasileira de Educação Especial, v. 28, 2022.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

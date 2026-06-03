@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutiAssist</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f7ff;
+    min-height: 100vh;
+  }
+
+  header {
+    background: #1565c0;
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  header h1 { font-size: 1.4rem; letter-spacing: 1px; }
+  header span { font-size: 0.85rem; opacity: 0.85; }
+
+  .frase-bar {
+    background: #fff;
+    border-bottom: 2px solid #1565c0;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 64px;
+  }
+
+  .frase-bar .placeholder {
+    color: #aaa;
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  .chip {
+    background: #1565c0;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: popIn 0.2s ease;
+  }
+
+  .chip .emoji { font-size: 1.3rem; }
+
+  .chip .remove {
+    cursor: pointer;
+    opacity: 0.7;
+    font-size: 0.85rem;
+    margin-left: 4px;
+  }
+
+  .chip .remove:hover { opacity: 1; }
+
+  @keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+
+  .acoes {
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px;
+    background: #e3f2fd;
+    flex-wrap: wrap;
+  }
+
+  .btn-falar {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+  }
+
+  .btn-falar:hover { background: #1b5e20; }
+
+  .btn-limpar {
+    background: #c62828;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-limpar:hover { background: #b71c1c; }
+
+  .categorias {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px 4px;
+    flex-wrap: wrap;
+  }
+
+  .cat-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 2px solid #1565c0;
+    background: white;
+    color: #1565c0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+
+  .cat-btn.ativo {
+    background: #1565c0;
+    color: white;
+  }
+
+  .cat-btn:hover { background: #1565c0; color: white; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .picto {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+    padding: 14px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    user-select: none;
+  }
+
+  .picto:hover {
+    border-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(21,101,192,0.2);
+  }
+
+  .picto:active {
+    transform: scale(0.95);
+    background: #e3f2fd;
+  }
+
+  .picto .ico { font-size: 2.4rem; display: block; margin-bottom: 6px; }
+  .picto .label { font-size: 0.8rem; font-weight: 600; color: #333; }
+
+  .status {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px; }
+    .picto .ico { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🧩 AutiAssist</h1>
+    <span>Comunicação Aumentativa com IA</span>
+  </div>
+</header>
+
+<div class="frase-bar" id="frase-bar">
+  <span class="placeholder" id="placeholder">Toque nas imagens para montar sua frase...</span>
+</div>
+
+<div class="acoes">
+  <button class="btn-falar" onclick="falar()">🔊 Falar</button>
+  <button class="btn-limpar" onclick="limpar()">🗑 Limpar</button>
+</div>
+
+<div class="categorias">
+  <button class="cat-btn ativo" onclick="mudarCategoria('necessidades', this)">🏠 Necessidades</button>
+  <button class="cat-btn" onclick="mudarCategoria('sentimentos', this)">❤️ Sentimentos</button>
+  <button class="cat-btn" onclick="mudarCategoria('acoes', this)">⚡ Ações</button>
+  <button class="cat-btn" onclick="mudarCategoria('comida', this)">🍎 Comida</button>
+  <button class="cat-btn" onclick="mudarCategoria('pessoas', this)">👤 Pessoas</button>
+  <button class="cat-btn" onclick="mudarCategoria('lugares', this)">📍 Lugares</button>
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="status" id="status"></div>
+
+<script>
+  const categorias = {
+    necessidades: [
+      { ico: '🚽', label: 'Banheiro' },
+      { ico: '💧', label: 'Água' },
+      { ico: '😴', label: 'Dormir' },
+      { ico: '🤒', label: 'Dor' },
+      { ico: '🤗', label: 'Abraço' },
+      { ico: '🔇', label: 'Silêncio' },
+      { ico: '🏠', label: 'Casa' },
+      { ico: '👕', label: 'Roupa' },
+      { ico: '🛁', label: 'Banho' },
+      { ico: '💊', label: 'Remédio' },
+      { ico: '📺', label: 'TV' },
+      { ico: '📱', label: 'Celular' },
+    ],
+    sentimentos: [
+      { ico: '😊', label: 'Feliz' },
+      { ico: '😢', label: 'Triste' },
+      { ico: '😡', label: 'Bravo' },
+      { ico: '😨', label: 'Com medo' },
+      { ico: '😰', label: 'Ansioso' },
+      { ico: '😴', label: 'Cansado' },
+      { ico: '🤢', label: 'Mal' },
+      { ico: '😍', label: 'Amor' },
+      { ico: '😐', label: 'Ok' },
+      { ico: '🙁', label: 'Chateado' },
+      { ico: '😲', label: 'Surpreso' },
+      { ico: '🥱', label: 'Entediado' },
+    ],
+    acoes: [
+      { ico: '✋', label: 'Parar' },
+      { ico: '▶️', label: 'Ir' },
+      { ico: '🙏', label: 'Por favor' },
+      { ico: '👍', label: 'Sim' },
+      { ico: '👎', label: 'Não' },
+      { ico: '❓', label: 'Ajuda' },
+      { ico: '🎮', label: 'Brincar' },
+      { ico: '📖', label: 'Ler' },
+      { ico: '✏️', label: 'Escrever' },
+      { ico: '🎵', label: 'Música' },
+      { ico: '🚶', label: 'Passear' },
+      { ico: '🏃', label: 'Correr' },
+    ],
+    comida: [
+      { ico: '🍎', label: 'Fruta' },
+      { ico: '🍞', label: 'Pão' },
+      { ico: '🍚', label: 'Arroz' },
+      { ico: '🥛', label: 'Leite' },
+      { ico: '🍫', label: 'Chocolate' },
+      { ico: '🍕', label: 'Pizza' },
+      { ico: '🍌', label: 'Banana' },
+      { ico: '🧃', label: 'Suco' },
+      { ico: '🍗', label: 'Frango' },
+      { ico: '🥚', label: 'Ovo' },
+      { ico: '🍪', label: 'Biscoito' },
+      { ico: '🍦', label: 'Sorvete' },
+    ],
+    pessoas: [
+      { ico: '👩', label: 'Mãe' },
+      { ico: '👨', label: 'Pai' },
+      { ico: '👧', label: 'Irmã' },
+      { ico: '👦', label: 'Irmão' },
+      { ico: '👴', label: 'Avô' },
+      { ico: '👵', label: 'Avó' },
+      { ico: '👨‍⚕️', label: 'Médico' },
+      { ico: '👩‍🏫', label: 'Professora' },
+      { ico: '👫', label: 'Amigo' },
+      { ico: '🐶', label: 'Cachorro' },
+      { ico: '🐱', label: 'Gato' },
+      { ico: '🧑', label: 'Eu' },
+    ],
+    lugares: [
+      { ico: '🏫', label: 'Escola' },
+      { ico: '🏥', label: 'Hospital' },
+      { ico: '🏪', label: 'Mercado' },
+      { ico: '🏠', label: 'Casa' },
+      { ico: '🌳', label: 'Parque' },
+      { ico: '⛪', label: 'Igreja' },
+      { ico: '🚗', label: 'Carro' },
+      { ico: '🚌', label: 'Ônibus' },
+      { ico: '🏖️', label: 'Praia' },
+      { ico: '🍽️', label: 'Restaurante' },
+      { ico: '💈', label: 'Salão' },
+      { ico: '📦', label: 'Loja' },
+    ]
+  }
+
+  let fraseAtual = []
+  let catAtual = 'necessidades'
+
+  function renderGrid(cat) {
+    const grid = document.getElementById('grid')
+    grid.innerHTML = ''
+    categorias[cat].forEach(item => {
+      const div = document.createElement('div')
+      div.className = 'picto'
+      div.innerHTML = `<span class="ico">${item.ico}</span><span class="label">${item.label}</span>`
+      div.onclick = () => adicionarPicto(item)
+      grid.appendChild(div)
+    })
+  }
+
+  function adicionarPicto(item) {
+    fraseAtual.push(item)
+    renderFrase()
+  }
+
+  function renderFrase() {
+    const bar = document.getElementById('frase-bar')
+    const placeholder = document.getElementById('placeholder')
+
+    if (fraseAtual.length === 0) {
+      placeholder.style.display = 'inline'
+      const chips = bar.querySelectorAll('.chip')
+      chips.forEach(c => c.remove())
+      return
+    }
+
+    placeholder.style.display = 'none'
+    bar.querySelectorAll('.chip').forEach(c => c.remove())
+
+    fraseAtual.forEach((item, i) => {
+      const chip = document.createElement('div')
+      chip.className = 'chip'
+      chip.innerHTML = `<span class="emoji">${item.ico}</span>${item.label}<span class="remove" onclick="removerPicto(${i})">✕</span>`
+      bar.appendChild(chip)
+    })
+  }
+
+  function removerPicto(i) {
+    fraseAtual.splice(i, 1)
+    renderFrase()
+  }
+
+  function limpar() {
+    fraseAtual = []
+    renderFrase()
+    document.getElementById('status').textContent = ''
+  }
+
+  function falar() {
+    if (fraseAtual.length === 0) return
+
+    const texto = fraseAtual.map(p => p.label).join(', ')
+    const status = document.getElementById('status')
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel()
+      const utt = new SpeechSynthesisUtterance(texto)
+      utt.lang = 'pt-BR'
+      utt.rate = 0.85
+      utt.pitch = 1.1
+
+      const vozes = window.speechSynthesis.getVoices()
+      const vozPT = vozes.find(v => v.lang.startsWith('pt'))
+      if (vozPT) utt.voice = vozPT
+
+      status.textContent = '🔊 Falando: ' + texto
+      utt.onend = () => { status.textContent = '' }
+      window.speechSynthesis.speak(utt)
+    } else {
+      status.textContent = '⚠️ Voz não disponível neste navegador.'
+    }
+  }
+
+  function mudarCategoria(cat, btn) {
+    catAtual = cat
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('ativo'))
+    btn.classList.add('ativo')
+    renderGrid(cat)
+  }
+
+  window.speechSynthesis?.addEventListener('voiceschanged', () => {})
+  renderGrid('necessidades')
+</script>
+</body>
+</html>
